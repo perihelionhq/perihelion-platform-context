@@ -1,0 +1,42 @@
+{
+  "context": "Judges a remediation of one conformance finding (colour literals in styled components) for completeness and restraint.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "literals_replaced",
+      "description": "All hex and rgb() colour literals used as styled-component colours in the files named by the finding are replaced with theme.colors references.",
+      "max_score": 3,
+      "category": "INTENT"
+    },
+    {
+      "name": "reuses_existing_tokens",
+      "description": "Where an existing theme token already has the same value (for example #5262a8 is otelBlue), the existing token is used instead of adding a duplicate.",
+      "max_score": 2,
+      "category": "REUSE"
+    },
+    {
+      "name": "new_tokens_in_theme",
+      "description": "Any colour without an existing token is added to styles/Theme.ts (and its theme type, if one exists) with a descriptive name, rather than left as a literal.",
+      "max_score": 2,
+      "category": "DESIGN"
+    },
+    {
+      "name": "visual_parity",
+      "description": "Each replacement maps to the same colour value as the literal it replaced.",
+      "max_score": 2,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "in_scope",
+      "description": "No unrelated refactoring, formatting churn or behaviour changes outside colour usage.",
+      "max_score": 2,
+      "category": "MINIMALITY"
+    },
+    {
+      "name": "tokens_defined",
+      "description": "Every theme.colors key the change references is defined in styles/Theme.ts and, if the theme has a type declaration, in that type too.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    }
+  ]
+}

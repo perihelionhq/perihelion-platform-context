@@ -1,0 +1,66 @@
+{
+  "context": "Judges an implementation plan for adding discount codes to the Go checkout service. Score the plan document only; the task forbids implementing the feature.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "plan_file_written",
+      "description": "A plan exists at docs/plans/discount-codes.md.",
+      "max_score": 1,
+      "category": "INTENT"
+    },
+    {
+      "name": "no_implementation",
+      "description": "No Go source files are added or changed; the change is limited to the plan document.",
+      "max_score": 2,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "uses_money_package",
+      "description": "The plan says discount arithmetic should use the existing money package.",
+      "max_score": 2,
+      "category": "REUSE"
+    },
+    {
+      "name": "avoids_float_money",
+      "description": "The plan explicitly says not to convert money amounts to float64 (or another floating-point type).",
+      "max_score": 1,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "percentage_and_fixed",
+      "description": "The plan covers both percentage and fixed-amount codes, including the minimum-order condition.",
+      "max_score": 2,
+      "category": "INTENT"
+    },
+    {
+      "name": "expiry_and_limits",
+      "description": "The plan covers code expiry and usage limits, including what happens when two orders race for the last use.",
+      "max_score": 2,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "order_flow_placement",
+      "description": "The plan says where in PlaceOrder the discount applies relative to shipping, currency conversion and charging the card.",
+      "max_score": 2,
+      "category": "DESIGN"
+    },
+    {
+      "name": "downstream_effects",
+      "description": "The plan addresses at least one downstream effect of a discount: the order confirmation email, the Kafka order message, or accounting records.",
+      "max_score": 2,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "tests_planned",
+      "description": "The plan lists concrete tests, including at least one failure case (invalid, expired or exhausted code).",
+      "max_score": 2,
+      "category": "DESIGN"
+    },
+    {
+      "name": "risks_named",
+      "description": "The plan names at least two risks or open questions and how to resolve them.",
+      "max_score": 1,
+      "category": "DESIGN"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "context": "Judges how well a change resolves two specific review comments on a Next.js API route, without over-reaching.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "scalar_query",
+      "description": "Repeated q parameters are handled deterministically: either rejected with a 400 JSON error or reduced to a single defined value before the RPC call.",
+      "max_score": 3,
+      "category": "INTENT"
+    },
+    {
+      "name": "missing_query",
+      "description": "A missing or empty q is handled explicitly (a 400 JSON error, or a documented empty result), not passed through as undefined.",
+      "max_score": 1,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "json_error_on_failure",
+      "description": "A failed searchProducts call returns a JSON body with an error field and a meaningful non-200 status (for example 502 or 503).",
+      "max_score": 3,
+      "category": "INTENT"
+    },
+    {
+      "name": "keeps_middleware",
+      "description": "The route remains wrapped in InstrumentationMiddleware.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "no_double_reporting",
+      "description": "The change neither removes the existing failure recording nor records the same failure twice.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "follows_existing_pattern",
+      "description": "Failure handling logs the catalog failure through the existing logger and returns a JSON error response consistent with the API's existing error-response style.",
+      "max_score": 1,
+      "category": "REUSE"
+    },
+    {
+      "name": "replies_written",
+      "description": "REVIEW_REPLIES.md contains two replies, one about repeated q handling and one about catalog failure handling, and each accurately describes the corresponding code change.",
+      "max_score": 1,
+      "category": "INTENT"
+    },
+    {
+      "name": "in_scope",
+      "description": "Only the search route and, if needed, the gateway are changed; other API routes and unrelated files are untouched.",
+      "max_score": 2,
+      "category": "MINIMALITY"
+    }
+  ]
+}

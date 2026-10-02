@@ -1,0 +1,66 @@
+{
+  "context": "Judges a new agent tool added to the Python shopping-assistant service, and the tests that come with it.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "tool_added_and_registered",
+      "description": "A new order-status tool function exists in shared/tools.py and is registered in the agent's tool list in src/agents/agents.py.",
+      "max_score": 2,
+      "category": "INTENT"
+    },
+    {
+      "name": "correct_endpoint",
+      "description": "The tool calls GET /api/orders/{orderId}/status on the existing APPLICATION_ENDPOINT base URL.",
+      "max_score": 1,
+      "category": "INTENT"
+    },
+    {
+      "name": "explicit_timeout",
+      "description": "The HTTP client is created with an explicit timeout, reusing the module's existing TIMEOUT.",
+      "max_score": 2,
+      "category": "REUSE"
+    },
+    {
+      "name": "errors_as_strings",
+      "description": "On a non-success response (including 404) the tool returns a string containing the status code and response body instead of raising.",
+      "max_score": 3,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "typed_and_documented",
+      "description": "The tool function has type hints on every parameter and a docstring that documents each parameter.",
+      "max_score": 1,
+      "category": "DESIGN"
+    },
+    {
+      "name": "test_success_case",
+      "description": "An added test covers a successful status lookup and asserts on the tool's return value.",
+      "max_score": 1,
+      "category": "DESIGN"
+    },
+    {
+      "name": "test_failure_case",
+      "description": "An added test covers at least one failure (a 404, a timeout or a connection error) and asserts on the returned error string.",
+      "max_score": 1,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "tests_isolated",
+      "description": "The tests do not make real network calls; HTTP is mocked or stubbed.",
+      "max_score": 1,
+      "category": "DESIGN"
+    },
+    {
+      "name": "tests_target_tool",
+      "description": "The added tests import and call the new tool function itself, not a copy or a reimplementation of it.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "minimal_change",
+      "description": "Existing tools and unrelated files are not rewritten.",
+      "max_score": 1,
+      "category": "MINIMALITY"
+    }
+  ]
+}

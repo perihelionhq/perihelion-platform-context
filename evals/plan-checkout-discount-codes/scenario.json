@@ -1,0 +1,24 @@
+{
+  "type": "coding",
+  "fixture": {
+    "type": "commit",
+    "repoUrl": "https://github.com/perihelionhq/perihelion-checkout.git",
+    "ref": "a90d88e61a8ab82c387abbfa2d67b6ee78860a0a",
+    "exclude": [
+      ".claude/",
+      ".agents/",
+      ".codex/",
+      ".github/skills/",
+      ".tessl/",
+      ".bmad-core/",
+      "_bmad/",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "tessl.json",
+      ".tessl-code-review.yml",
+      "skills/",
+      "review-lenses/",
+      "verifiers/"
+    ]
+  }
+}

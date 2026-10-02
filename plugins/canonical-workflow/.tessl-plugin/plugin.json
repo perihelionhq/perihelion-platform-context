@@ -1,0 +1,6 @@
+{
+  "name": "platform-team/canonical-workflow",
+  "version": "1.0.0",
+  "description": "Perihelion's Canonical Workflow: the role skills every team converges on, and the factory actions that run them from Tessl triggers.",
+  "private": true
+}

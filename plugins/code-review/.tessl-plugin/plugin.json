@@ -1,0 +1,6 @@
+{
+  "name": "platform-team/code-review",
+  "version": "1.0.0",
+  "description": "Code review lenses for Tessl Code Review, derived from Compound Engineering's ce-code-review reviewer personas.",
+  "private": true
+}

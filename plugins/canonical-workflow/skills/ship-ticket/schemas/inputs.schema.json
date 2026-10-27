@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "GITHUB_ISSUE_NUMBER": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$",
+      "description": "The number of the issue to implement, in the repository the run is cloned from. Default: the issue the trigger events name."
+    },
+    "GITHUB_ISSUE_LABEL": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The label that hands an issue to Tessl. Default: the label of the first trigger event, then tessl."
+    }
+  }
+}

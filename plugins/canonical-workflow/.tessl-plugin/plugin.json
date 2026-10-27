@@ -1,6 +1,6 @@
 {
   "name": "platform-team/canonical-workflow",
-  "version": "1.0.0",
-  "description": "Perihelion's Canonical Workflow: the role skills every team converges on, and the factory actions that run them from Tessl triggers.",
+  "version": "1.1.0",
+  "description": "Perihelion's Canonical Workflow: the role skills the evals picked (plan, build) and the factory loop skills that run them (ship-ticket, land-pr, follow-ticket).",
   "private": true
 }

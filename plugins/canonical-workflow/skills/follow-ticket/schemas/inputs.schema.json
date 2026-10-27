@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Give at most one of LINEAR_ISSUE_IDENTIFIER, GITHUB_ISSUE_NUMBER and GITHUB_PR_NUMBER, fitting TICKET_CHANGE; the skill checks that.",
+  "properties": {
+    "TICKET_CHANGE": {
+      "type": "string",
+      "enum": ["taken-back", "issue-ended", "replied", "pr-closed"],
+      "description": "What a person did: took an issue back, ended an issue, replied to Tessl's question, or closed a Tessl pull request."
+    },
+    "LINEAR_ISSUE_IDENTIFIER": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]*-[1-9][0-9]*$",
+      "description": "The Linear issue the change concerns, such as ABC-123. Default: the Linear issue the trigger events name."
+    },
+    "GITHUB_ISSUE_NUMBER": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$",
+      "description": "The number of the GitHub issue the change concerns, in the repository the run is cloned from. Default: the GitHub issue the trigger events name."
+    },
+    "GITHUB_PR_NUMBER": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$",
+      "description": "The number of the pull request the change concerns, in the repository the run is cloned from. Default: the pull request the trigger events name."
+    },
+    "GITHUB_ISSUE_LABEL": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The label that hands a GitHub issue to Tessl. Wins over ISSUE_LABEL. Default: ISSUE_LABEL, then tessl."
+    },
+    "ISSUE_LABEL": {
+      "type": "string",
+      "description": "The label that hands a GitHub issue to Tessl, used when GITHUB_ISSUE_LABEL is not given. Default: tessl."
+    }
+  },
+  "required": ["TICKET_CHANGE"]
+}

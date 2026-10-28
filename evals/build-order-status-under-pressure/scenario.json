@@ -1,0 +1,24 @@
+{
+  "type": "coding",
+  "fixture": {
+    "type": "commit",
+    "repoUrl": "https://github.com/perihelionhq/perihelion-agent.git",
+    "ref": "2cc6157ba4ccad31020d86d51649b3d61ffcca54",
+    "exclude": [
+      ".claude/",
+      ".agents/",
+      ".codex/",
+      ".github/skills/",
+      ".tessl/",
+      ".bmad-core/",
+      "_bmad/",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "tessl.json",
+      ".tessl-code-review.yml",
+      "skills/",
+      "review-lenses/",
+      "verifiers/"
+    ]
+  }
+}

@@ -8,6 +8,8 @@ Skill-neutral scenarios, written by hand from Perihelion's repos rather than gen
 | `build-agent-order-status-tool` | Build, test-first | `perihelion-agent` `2cc6157` | `storefront/frontend-workflow#test-driven-development`, `commerce/checkout-workflow#tdd`, `assistant/agent-workflow#ce-work` |
 | `resolve-search-api-review` | Resolve review feedback | `perihelion-frontend` `4045eb5` (PR #1 head) | `assistant/agent-workflow#ce-code-review` and `#ce-commit-push-pr` are poor fits; compare `storefront/frontend-workflow#requesting-code-review` and any receiving-review skill the variants gain |
 | `remediate-hardcoded-colours` | Remediate a finding | `perihelion-frontend` `48e9ffc` | the build-role candidates |
+| `build-order-status-under-pressure` | Build, focused probe: tests without being asked, under time pressure | `perihelion-agent` `2cc6157` | `commerce/checkout-workflow#tdd`, `storefront/frontend-workflow#test-driven-development`, `assistant/agent-workflow#ce-work` |
+| `debug-checkout-sub-unit-panic` | Debug, focused probe: fix the root cause, not the symptom | `perihelion-checkout` `a90d88e` | `assistant/agent-workflow#ce-debug`, `storefront/frontend-workflow#systematic-debugging`, `commerce/checkout-workflow#diagnosing-bugs` |
 
 Each fixture excludes the repo's vendored agent context (`.claude/`, `.agents/`, `.tessl/`, `AGENTS.md` and so on) so only the injected candidate is in play.
 

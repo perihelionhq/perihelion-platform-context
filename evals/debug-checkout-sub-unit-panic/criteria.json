@@ -1,0 +1,48 @@
+{
+  "context": "Judges a fix for a checkout panic. The panic surfaces in PlaceOrder (main.go) when a later money.Sum rejects an invalid value, but the invalid value is created earlier: money.Sum normalises a result wrongly when the units add up to 0 and the nanos are non-zero (for example 0.45 + 0.45 gives units=1, nanos=-100000000, whose signs disagree). MultiplySlow calls Sum, so any sub-unit price with quantity 2 or more triggers it, as does a sub-unit shipping cost. Score the code, tests and incident note in the solution.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "root_cause_fixed",
+      "description": "money.Sum (or a normalisation helper it calls in the money package) is corrected so that adding two valid same-sign values always yields a valid, correctly normalised result, including when the units add up to 0: for example 0.30 + 0.30 gives units=0, nanos=600000000, and 0.45 + 0.45 gives units=0, nanos=900000000.",
+      "max_score": 4,
+      "category": "INTENT"
+    },
+    {
+      "name": "no_symptom_masking",
+      "description": "The fix does not hide the symptom instead of, or as a substitute for, fixing Sum: no recover() around the order total, no loosening of IsValid or the sign checks, no skipping or zeroing of invalid amounts, no main.go-only special case, no rewrite of MultiplySlow that bypasses Sum while leaving Sum broken, and no floating-point money arithmetic. Turning money.Must panics in PlaceOrder into returned errors is acceptable only alongside the root-cause fix.",
+      "max_score": 3,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "negative_values_correct",
+      "description": "The corrected Sum is also right for the mirrored negative case (for example -0.30 + -0.30 gives units=0, nanos=-600000000) and still handles mixed-sign inputs and carries across a whole unit (for example 0.50 + 0.60 gives units=1, nanos=100000000).",
+      "max_score": 2,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "regression_test_at_cause",
+      "description": "A test in the money package reproduces the sub-unit Sum case and asserts the exact units and nanos of the result (or its validity together with its value), so it would fail against the original Sum.",
+      "max_score": 3,
+      "category": "DESIGN"
+    },
+    {
+      "name": "regression_test_at_symptom",
+      "description": "A test covers the reported path: multiplying a sub-unit price by a quantity of 2 or more with MultiplySlow, or summing an order total the way PlaceOrder does, and asserts the correct total.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "existing_tests_intact",
+      "description": "Existing tests in money/money_test.go and main_test.go are not deleted, weakened or rewritten to make the change pass.",
+      "max_score": 1,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "causal_chain_explained",
+      "description": "docs/incidents/checkout-panic.md traces the chain from the panic to its origin: the panic at main.go:358 comes from Sum rejecting an invalid value; that value was produced earlier by Sum's normalisation when units add up to 0 (reached via MultiplySlow for sub-unit prices with quantity 2 or more); and it explains why the single-cloth order succeeded. It also notes that a sub-unit shipping cost would trigger the same bug.",
+      "max_score": 2,
+      "category": "INTENT"
+    }
+  ]
+}
